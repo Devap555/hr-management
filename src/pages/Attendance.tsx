@@ -70,22 +70,22 @@ export default function Attendance() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Attendance</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Attendance</h1>
           <p className="text-muted-foreground mt-1">Track employee attendance and working hours</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">Export Report</Button>
-          <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300">
+          <Button variant="outline" className="flex-1 sm:flex-none">Export Report</Button>
+          <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300 flex-1 sm:flex-none">
             Mark Attendance
           </Button>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <StatsCard
           title="Present Today"
           value={142}
@@ -118,9 +118,9 @@ export default function Attendance() {
 
       {/* Date Filter */}
       <Card className="shadow-card">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+        <CardContent className="p-4 lg:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <Calendar size={18} className="text-muted-foreground" />
               <span className="text-sm text-muted-foreground">Date:</span>
             </div>
@@ -128,11 +128,13 @@ export default function Attendance() {
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-3 py-2 border border-border rounded-md bg-background text-foreground"
+              className="px-3 py-2 border border-border rounded-md bg-background text-foreground flex-1 sm:flex-none"
             />
-            <Button variant="outline" size="sm">Today</Button>
-            <Button variant="outline" size="sm">This Week</Button>
-            <Button variant="outline" size="sm">This Month</Button>
+            <div className="flex gap-2 overflow-x-auto">
+              <Button variant="outline" size="sm" className="whitespace-nowrap">Today</Button>
+              <Button variant="outline" size="sm" className="whitespace-nowrap">This Week</Button>
+              <Button variant="outline" size="sm" className="whitespace-nowrap">This Month</Button>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -190,23 +192,23 @@ export default function Attendance() {
       {/* Clock In/Out Section */}
       <Card className="shadow-card">
         <CardHeader>
-          <CardTitle>Quick Clock In/Out</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Quick Clock In/Out</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="text-center p-6 bg-gradient-card rounded-lg">
-              <Clock size={48} className="text-primary mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Current Time</h3>
-              <p className="text-3xl font-bold text-primary">{new Date().toLocaleTimeString()}</p>
-              <Button className="mt-4 bg-success hover:bg-success/90">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <div className="text-center p-4 lg:p-6 bg-gradient-card rounded-lg">
+              <Clock size={36} className="lg:w-12 lg:h-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg lg:text-xl font-semibold mb-2">Current Time</h3>
+              <p className="text-2xl lg:text-3xl font-bold text-primary">{new Date().toLocaleTimeString()}</p>
+              <Button className="mt-4 w-full bg-success hover:bg-success/90">
                 Clock In
               </Button>
             </div>
-            <div className="text-center p-6 bg-gradient-card rounded-lg">
-              <TrendingUp size={48} className="text-primary mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Today's Hours</h3>
-              <p className="text-3xl font-bold text-primary">7h 30m</p>
-              <Button className="mt-4 bg-error hover:bg-error/90">
+            <div className="text-center p-4 lg:p-6 bg-gradient-card rounded-lg">
+              <TrendingUp size={36} className="lg:w-12 lg:h-12 text-primary mx-auto mb-4" />
+              <h3 className="text-lg lg:text-xl font-semibold mb-2">Today's Hours</h3>
+              <p className="text-2xl lg:text-3xl font-bold text-primary">7h 30m</p>
+              <Button className="mt-4 w-full bg-error hover:bg-error/90">
                 Clock Out
               </Button>
             </div>

@@ -82,13 +82,13 @@ export default function Employees() {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Employees</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Employees</h1>
           <p className="text-muted-foreground mt-1">Manage your team members</p>
         </div>
-        <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300">
+        <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300 self-start sm:self-auto">
           <Plus size={18} className="mr-2" />
           Add Employee
         </Button>
@@ -96,7 +96,7 @@ export default function Employees() {
 
       {/* Search and Filters */}
       <Card className="shadow-card">
-        <CardContent className="p-6">
+        <CardContent className="p-4 lg:p-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
@@ -108,11 +108,11 @@ export default function Employees() {
               />
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button variant="outline" className="flex items-center gap-2 flex-1 sm:flex-none">
                 <Filter size={18} />
-                Filter
+                <span className="sm:inline">Filter</span>
               </Button>
-              <Button variant="outline">Export</Button>
+              <Button variant="outline" className="flex-1 sm:flex-none">Export</Button>
             </div>
           </div>
         </CardContent>
@@ -121,79 +121,86 @@ export default function Employees() {
       {/* Employees Table */}
       <Card className="shadow-card">
         <CardHeader>
-          <CardTitle>Employee Directory ({filteredEmployees.length})</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Employee Directory ({filteredEmployees.length})</CardTitle>
         </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Employee</TableHead>
-                <TableHead>Department</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Salary</TableHead>
-                <TableHead>Join Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredEmployees.map((employee) => (
-                <TableRow key={employee.id} className="hover:bg-muted/30">
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage src={employee.avatar} alt={employee.name} />
-                        <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium text-foreground">{employee.name}</p>
-                        <p className="text-sm text-muted-foreground">{employee.email}</p>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">{employee.department}</Badge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">{employee.role}</TableCell>
-                  <TableCell className="font-medium">${employee.salary.toLocaleString()}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {new Date(employee.joinDate).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <Badge 
-                      variant={employee.status === "Active" ? "default" : "secondary"}
-                      className={employee.status === "Active" ? "bg-success text-success-foreground" : ""}
-                    >
-                      {employee.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                          <Eye className="mr-2 h-4 w-4" />
-                          View Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Edit className="mr-2 h-4 w-4" />
-                          Edit Employee
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive">
-                          <Trash2 className="mr-2 h-4 w-4" />
-                          Delete Employee
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="min-w-[200px]">Employee</TableHead>
+                  <TableHead className="hidden sm:table-cell">Department</TableHead>
+                  <TableHead className="hidden md:table-cell">Role</TableHead>
+                  <TableHead className="hidden lg:table-cell">Salary</TableHead>
+                  <TableHead className="hidden lg:table-cell">Join Date</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right w-[50px]">Actions</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredEmployees.map((employee) => (
+                  <TableRow key={employee.id} className="hover:bg-muted/30">
+                    <TableCell className="min-w-[200px]">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-8 w-8 lg:h-10 lg:w-10 flex-shrink-0">
+                          <AvatarImage src={employee.avatar} alt={employee.name} />
+                          <AvatarFallback>{employee.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <p className="font-medium text-foreground truncate">{employee.name}</p>
+                          <p className="text-xs lg:text-sm text-muted-foreground truncate">{employee.email}</p>
+                          {/* Mobile: Show department and role */}
+                          <div className="sm:hidden mt-1 space-y-1">
+                            <Badge variant="secondary" className="text-xs">{employee.department}</Badge>
+                            <p className="text-xs text-muted-foreground">{employee.role}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      <Badge variant="secondary">{employee.department}</Badge>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell text-muted-foreground">{employee.role}</TableCell>
+                    <TableCell className="hidden lg:table-cell font-medium">${employee.salary.toLocaleString()}</TableCell>
+                    <TableCell className="hidden lg:table-cell text-muted-foreground">
+                      {new Date(employee.joinDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant={employee.status === "Active" ? "default" : "secondary"}
+                        className={`text-xs ${employee.status === "Active" ? "bg-success text-success-foreground" : ""}`}
+                      >
+                        {employee.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Edit className="mr-2 h-4 w-4" />
+                            Edit Employee
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="text-destructive">
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete Employee
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

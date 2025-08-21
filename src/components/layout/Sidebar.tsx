@@ -24,14 +24,23 @@ const menuItems = [
   { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
 
   return (
     <div className={cn(
       "fixed left-0 top-0 h-full bg-sidebar border-r border-sidebar-border transition-all duration-300 z-50",
-      collapsed ? "w-16" : "w-64"
+      // Mobile: slide in/out based on isOpen, Desktop: always visible with collapse
+      "lg:translate-x-0",
+      isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+      collapsed && "lg:w-16",
+      !collapsed && "w-64"
     )}>
       <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
         {!collapsed && (
@@ -43,9 +52,18 @@ export default function Sidebar() {
           variant="ghost"
           size="sm"
           onClick={() => setCollapsed(!collapsed)}
-          className="text-sidebar-foreground hover:bg-sidebar-accent"
+          className="hidden lg:flex text-sidebar-foreground hover:bg-sidebar-accent"
         >
           {collapsed ? <Menu size={18} /> : <X size={18} />}
+        </Button>
+        {/* Mobile close button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onToggle}
+          className="lg:hidden text-sidebar-foreground hover:bg-sidebar-accent"
+        >
+          <X size={18} />
         </Button>
       </div>
 

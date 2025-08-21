@@ -1,4 +1,4 @@
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,15 +10,29 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export default function Header({ onMenuClick }: HeaderProps) {
   return (
-    <header className="h-16 bg-card border-b border-border px-6 flex items-center justify-between">
+    <header className="h-16 bg-card border-b border-border px-4 lg:px-6 flex items-center justify-between">
       <div className="flex items-center gap-4 flex-1">
-        <div className="relative max-w-md">
+        {/* Mobile menu button */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onMenuClick}
+          className="lg:hidden text-foreground"
+        >
+          <Menu size={18} />
+        </Button>
+        
+        <div className="relative max-w-md flex-1 lg:flex-none">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
           <Input
             placeholder="Search employees, attendance..."
-            className="pl-10 bg-background"
+            className="pl-10 bg-background w-full"
           />
         </div>
       </div>
