@@ -14,46 +14,42 @@ import {
 } from "@/components/ui/table";
 import StatsCard from "@/components/dashboard/StatsCard";
 
-const mockAttendance = [
+const myAttendance = [
   {
     id: 1,
-    employee: "John Doe",
-    avatar: "/placeholder.svg",
+    date: "2024-01-22",
     checkIn: "09:00 AM",
     checkOut: "06:00 PM",
     workingHours: "9h 0m",
     status: "Present",
-    date: "2024-01-20"
+    overtime: "0h 0m"
   },
   {
     id: 2,
-    employee: "Sarah Wilson",
-    avatar: "/placeholder.svg",
+    date: "2024-01-21",
     checkIn: "09:15 AM",
     checkOut: "06:15 PM",
     workingHours: "9h 0m",
     status: "Late",
-    date: "2024-01-20"
+    overtime: "0h 0m"
   },
   {
     id: 3,
-    employee: "Mike Johnson",
-    avatar: "/placeholder.svg",
+    date: "2024-01-20",
     checkIn: "08:45 AM",
     checkOut: "05:45 PM",
     workingHours: "9h 0m",
     status: "Present",
-    date: "2024-01-20"
+    overtime: "0h 0m"
   },
   {
     id: 4,
-    employee: "Emily Davis",
-    avatar: "/placeholder.svg",
+    date: "2024-01-19",
     checkIn: "-",
     checkOut: "-",
     workingHours: "-",
     status: "Absent",
-    date: "2024-01-20"
+    overtime: "-"
   },
 ];
 
@@ -73,11 +69,11 @@ export default function Attendance() {
     <div className="space-y-4 lg:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Attendance</h1>
-          <p className="text-muted-foreground mt-1">Track employee attendance and working hours</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">My Attendance</h1>
+          <p className="text-muted-foreground mt-1">Track your attendance and working hours</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="flex-1 sm:flex-none">Export Report</Button>
+          <Button variant="outline" className="flex-1 sm:flex-none">View History</Button>
           <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300 flex-1 sm:flex-none">
             Mark Attendance
           </Button>
@@ -87,31 +83,31 @@ export default function Attendance() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <StatsCard
-          title="Present Today"
-          value={142}
+          title="This Month"
+          value="22/24"
           icon={CheckCircle}
-          change="91% attendance"
+          change="92% attendance"
           changeType="positive"
         />
         <StatsCard
-          title="Late Arrivals"
-          value={6}
+          title="Late Days"
+          value={3}
           icon={Clock}
-          change="-3 from yesterday"
-          changeType="positive"
+          change="This month"
+          changeType="neutral"
         />
         <StatsCard
-          title="Absent"
-          value={8}
+          title="Absent Days"
+          value={2}
           icon={XCircle}
-          change="5% absence rate"
+          change="This month"
           changeType="neutral"
         />
         <StatsCard
           title="Avg Working Hours"
           value="8.5h"
           icon={TrendingUp}
-          change="+0.2h this week"
+          change="Daily average"
           changeType="positive"
         />
       </div>
@@ -143,15 +139,15 @@ export default function Attendance() {
       <Card className="shadow-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Users size={20} className="text-primary" />
-            Daily Attendance - {new Date(selectedDate).toLocaleDateString()}
+            <Clock size={20} className="text-primary" />
+            My Attendance History
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Employee</TableHead>
+                <TableHead>Date</TableHead>
                 <TableHead>Check In</TableHead>
                 <TableHead>Check Out</TableHead>
                 <TableHead>Working Hours</TableHead>
@@ -160,17 +156,9 @@ export default function Attendance() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {mockAttendance.map((record) => (
+              {myAttendance.map((record) => (
                 <TableRow key={record.id} className="hover:bg-muted/30">
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage src={record.avatar} alt={record.employee} />
-                        <AvatarFallback>{record.employee.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                      </Avatar>
-                      <span className="font-medium text-foreground">{record.employee}</span>
-                    </div>
-                  </TableCell>
+                  <TableCell className="font-medium">{new Date(record.date).toLocaleDateString()}</TableCell>
                   <TableCell className="text-muted-foreground">{record.checkIn}</TableCell>
                   <TableCell className="text-muted-foreground">{record.checkOut}</TableCell>
                   <TableCell className="font-medium">{record.workingHours}</TableCell>
@@ -179,9 +167,7 @@ export default function Attendance() {
                       {record.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {record.status === "Present" || record.status === "Late" ? "0h 0m" : "-"}
-                  </TableCell>
+                  <TableCell className="text-muted-foreground">{record.overtime}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -16,12 +16,9 @@ import { Button } from "@/components/ui/button";
 
 const menuItems = [
   { icon: Home, label: "Dashboard", href: "/" },
-  { icon: Users, label: "Employees", href: "/employees" },
-  { icon: Clock, label: "Attendance", href: "/attendance" },
-  { icon: Calendar, label: "Leave Requests", href: "/leave" },
-  { icon: BarChart3, label: "Reports", href: "/reports" },
-  { icon: User, label: "Profile", href: "/profile" },
-  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: Clock, label: "Mark Attendance", href: "/attendance" },
+  { icon: Calendar, label: "Apply for Leave", href: "/leave" },
+  { icon: User, label: "My Profile", href: "/profile" },
 ];
 
 interface SidebarProps {
@@ -45,7 +42,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
       <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
         {!collapsed && (
           <h1 className="text-xl font-bold text-sidebar-foreground">
-            HR<span className="text-sidebar-primary">Pro</span>
+            <span className="text-sidebar-primary">GUC</span> Employee
           </h1>
         )}
         <Button
@@ -98,7 +95,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
               Welcome back!
             </p>
             <p className="text-xs text-sidebar-foreground mt-1">
-              Admin Panel
+              Employee Portal
             </p>
           </div>
         </div>

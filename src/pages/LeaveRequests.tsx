@@ -95,14 +95,14 @@ export default function LeaveRequests() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Leave Requests</h1>
-          <p className="text-muted-foreground mt-1">Manage employee leave applications</p>
+          <h1 className="text-3xl font-bold text-foreground">My Leave Requests</h1>
+          <p className="text-muted-foreground mt-1">Apply for leave and track your requests</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">Export Report</Button>
+          <Button variant="outline">View Balance</Button>
           <Button className="bg-gradient-primary hover:shadow-medium transition-all duration-300">
             <Plus size={18} className="mr-2" />
-            New Request
+            Apply for Leave
           </Button>
         </div>
       </div>
